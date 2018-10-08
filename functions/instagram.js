@@ -38,18 +38,23 @@ module.exports = {
         if (limit >= 3) {
           line = {"type": "box","layout": "horizontal","margin": "xs"}
           line.contents = arr;
+          flex.contents.body.contents.push(line)
           limit = 0;
           arr = [];
           arr.push(box);
         } else {
           arr.push(box);
         }
-        flex.contents.body.contents.push(line)
         jmlFoto++;
         baris++;
       }
-      for (var i = 0; i < 3-limit; i++) {
-        flex.contents.body.contents[4+baris].push({"type":"filler"});
+      if (limit < 3) {
+        line = {"type": "box","layout": "horizontal","margin": "xs"}
+        line.contents = arr;
+        flex.contents.body.contents.push(line)
+        for (var i = 0; i < 3-limit; i++) {
+          flex.contents.body.contents[4+baris].push({"type":"filler"});
+        }
       }
       console.log(JSON.stringify(flex));
       return client.replyMessage(replyToken, flex);
