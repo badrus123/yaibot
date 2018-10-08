@@ -197,6 +197,7 @@ module.exports = {
       "aspectMode": "cover",
       "margin": "xs",
       "size": "xl",
+    },
     {
       "type": "text",
       "text": "Digembok cuy.. Sabar aja yak",
