@@ -15,13 +15,21 @@ module.exports = {
           "contents": [
             {
               "type": "box",
-              "layout": "baseline",
+              "layout": "horizontal",
               "margin": "md",
               "contents": [
                 {
-                  "type": "icon",
-                  "size": "xl",
-                  "url": foto
+                  "type": "image",
+                  "url": foto,
+                  "aspectMode": "cover",
+                  "margin": "xs",
+                  "size": "xxs",
+                  "action": {
+                    "type": "postback",
+                    "label": "Buy",
+                    "data": "data=instagram&url="foto,
+                    "text": "Photo profile " + username + " (Tap photo profile)"
+                  },
                 },
                 {
                   "type": "text",
@@ -29,7 +37,7 @@ module.exports = {
                   "size": "xl",
                   "color": "#696969",
                   "margin": "md",
-                  "flex": 0
+                  "flex": 6
                 }
               ]
             },

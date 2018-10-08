@@ -29,31 +29,31 @@ module.exports = {
       var flex = instagram.profile(foto, username,followedBy, following, postCount, fullName, bio, url);
       var postingan = result.edge_owner_to_timeline_media.edges;
       var limit = 0;
-      var baris = 0;
+      var baris = 1;
       var arr = [];
       for (var post in postingan) {
         res = postingan[post].node;
         media = res.display_url;
         box = instagram.post(media);
+        limit++;
         if (limit >= 3) {
           line = {"type": "box","layout": "horizontal","margin": "xs"}
+          arr.push(box);
           line.contents = arr;
           flex.contents.body.contents.push(line)
-          limit = 0;
           arr = [];
-          arr.push(box);
+          limit = 0;
           baris++;
         } else {
           arr.push(box);
         }
-        limit++;
       }
       if (limit < 3) {
         line = {"type": "box","layout": "horizontal","margin": "xs"}
         line.contents = arr;
         flex.contents.body.contents.push(line);
         for (var i = 0; i < 3-limit; i++) {
-          flex.contents.body.contents[5+baris].contents.push({"type":"filler"});
+          flex.contents.body.contents[4+baris].contents.push({"type":"filler"});
         }
       }
       return client.replyMessage(replyToken, flex);
