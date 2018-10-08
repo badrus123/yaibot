@@ -33,7 +33,7 @@ module.exports = {
         var baris = 1;
         var arr = [];
         if (isPrivate) {
-          flex.contents.body.contents.push(instagram.private())
+          flex.contents.body.contents.push(instagram.private());
         } else {
           for (var post in postingan) {
             res = postingan[post].node;
@@ -64,7 +64,7 @@ module.exports = {
         return client.replyMessage(replyToken, flex);
       } else {
         answer = [`Yakin tuh ig nya? Ga nemu nih gw`, `Ga nemu ig nya nih, typo kali tuh?`, `Wadoo, gw ga nemu ig ${username}`]
-        return replyText(replyToken, answer[Math.floor(Math.random()*answer.length))
+        return replyText(replyToken, answer[Math.floor(Math.random()*answer.length)]);
       }
     });
   },

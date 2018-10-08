@@ -190,7 +190,7 @@ module.exports = {
     };
     return flex;
   },
-  line: function () {
+  private: function () {
     flex = {
       "type": "image",
       "url": "https://image.flaticon.com/icons/svg/1179/1179941.svg",
