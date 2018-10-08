@@ -8,7 +8,7 @@ module.exports = {
     var username = text.replace('ig: ', '');
     console.log(username);
     request('https://www.instagram.com/' + username + '/?__a=1', function (error, response, body) {
-      var result = JSON.parse(body);
+      var result = body;
       let foto = result.graphql.user.profile_pic_url_hd;
       let followedBy = result.graphql.user.edge_followed_by.count;
       let following = result.graphql.user.edge_follow.count;
