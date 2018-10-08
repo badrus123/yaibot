@@ -28,7 +28,7 @@ module.exports = {
                     "type": "postback",
                     "label": "Buy",
                     "data": "data=instagram&url=" + foto,
-                    "text": "Photo profile " + username + " (Tap photo profile)"
+                    "text": "Download photo profile"
                   },
                 },
                 {
@@ -177,7 +177,7 @@ module.exports = {
          "type":"postback",
          "label":"Buy",
          "data":"data=instagram&url=" + media,
-         "text": "Download foto"
+         "text": "Download photo"
       }
     };
     return flex;
