@@ -262,12 +262,8 @@ function handleText(message, replyToken, source) {
         },
       });
     }
-  } else if (message.text == 'Menu' || message.text == 'menu' || message.text == 'MENU') {
-    return template.menu(replyToken, source);
   } else if (message.text.startsWith('ig')) {
     return instagram.profile(replyToken, message.text, source);
-  } else {
-    return dialogflow.response(message.text, replyToken, source);
   }
 }
 
