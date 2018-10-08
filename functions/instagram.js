@@ -17,9 +17,8 @@ module.exports = {
       let bio = result.graphql.user.biography;
       let url = result.graphql.user.external_url;
       return client.replyMessage(replyToken, {
-          "type": "image",
-          "originalContentUrl": foto,
-          "previewImageUrl": foto
+          "type": "text",
+          "text": "\uDBC0\uDC84 LINE emoji"
       });
     });
   }
