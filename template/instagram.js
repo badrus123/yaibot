@@ -27,7 +27,7 @@ module.exports = {
                   "action": {
                     "type": "postback",
                     "label": "Buy",
-                    "data": "data=instagram&url="foto,
+                    "data": "data=instagram&url=" + foto,
                     "text": "Photo profile " + username + " (Tap photo profile)"
                   },
                 },
