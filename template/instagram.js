@@ -193,21 +193,16 @@ module.exports = {
   private: function () {
     flex = {
       "type": "image",
-      "url": "https://image.flaticon.com/icons/svg/1179/1179941.svg",
+      "url": "https://yaibot.herokuapp.com/images/padlock.png",
       "aspectMode": "cover",
-      "aspectRatio": "1:1",
-      "size": "xxs",
-      "gravity": "bottom",
-      "flex": 0
-    },
+      "margin": "xs",
+      "size": "xl",
     {
       "type": "text",
       "text": "Digembok cuy.. Sabar aja yak",
       "wrap": true,
       "align": "center",
       "size": "sm",
-      "color": "#666666",
-      "flex": 4
     };
     return flex;
   }
