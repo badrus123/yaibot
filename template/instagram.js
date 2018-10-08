@@ -74,7 +74,7 @@ module.exports = {
     if (fullName == "") fullName = "-";
     if (bio == "") bio = "-";
     if (url == null) url = "-";
-    flex.body.contents.push({
+    flex.contents.body.contents.push({
       "type": "box",
       "layout": "vertical",
       "margin": "lg",
