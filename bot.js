@@ -217,10 +217,8 @@ function handleEvent(event) {
         var str = vars[i].split("=");
         res[str[0]] = str[1];
       }
-      if (res.data == 'igracias') {
-        return igracias.response(event.replyToken, res, event.source.userId);
-      } else if (res.data == 'todolist') {
-        return todolist.response(event.replyToken, res, event.source);
+      if (res.data == 'instagram') {
+        return instagram.download(event.replyToken, res, source);
       }
     }
     break;

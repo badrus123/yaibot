@@ -157,9 +157,10 @@ module.exports = {
       "margin": "xs",
       "size": "xl",
       "action": {
-        "type": "uri",
-        "label": "See More",
-        "uri": "https://linecorp.com"
+         "type":"postback",
+         "label":"Buy",
+         "data":"data=instagram&url=" + media,
+         "text":"Buy"
       }
     };
     return flex;

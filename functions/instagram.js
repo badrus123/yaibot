@@ -58,5 +58,16 @@ module.exports = {
       }
       return client.replyMessage(replyToken, flex);
     });
+  },
+  download: function (replyToken, res, source) {
+    var replyText = bot.replyText;
+    var client = bot.client;
+    var foto = res.url;
+    return client.replyMessage(replyToken, {
+      "type": "image",
+      "originalContentUrl": foto,
+      "previewImageUrl": foto
+    });
+
   }
 };
