@@ -1,6 +1,4 @@
 const bot = require('./../bot.js');
-const igracias = require('./../functions/igracias.js');
-const template = require('./../template/igracias.js');
 
 var self = {
   response: function (replyToken, res, userId) {
