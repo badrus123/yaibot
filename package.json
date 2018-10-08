@@ -1,0 +1,28 @@
+{
+  "name": "yaicademic",
+  "version": "0.0.0",
+  "description": "Igracias versi Chatbot",
+  "main": "bot.js",
+  "scripts": {
+    "start": "node ."
+  },
+  "engines": {
+    "node": "8.2.1"
+  },
+  "dependencies": {
+    "@line/bot-sdk": "^5.0.0",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.2",
+    "firebase-admin": "^5.12.1",
+    "moment": "^2.22.2",
+    "request": "^2.87.0",
+    "request-promise": "^4.2.2",
+    "sync-request": "^6.0.0"
+  },
+  "devDependencies": {},
+  "keywords": [
+    "yaicademic"
+  ],
+  "author": "iyai",
+  "license": "ISC"
+}
