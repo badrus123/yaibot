@@ -17,7 +17,7 @@ module.exports = {
       },
       json: true
     }, function (error, response, body){
-      if (body) {
+      if (body.graphql) {
         var result = body.graphql.user;
         let foto = result.profile_pic_url_hd;
         let followedBy = result.edge_followed_by.count;
