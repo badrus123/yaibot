@@ -5,7 +5,7 @@ module.exports = {
   profile: function (replyToken, text, source) {
     var replyText = bot.replyText;
     var client = bot.client;
-    var username = text.replace('ig: ', '');
+    var username = text.replace('ig: ', '').toLowerCase();
     request({
       url: 'https://www.instagram.com/' + username + '/?__a=1',
       method: "GET",
@@ -17,20 +17,40 @@ module.exports = {
       },
       json: true
     }, function (error, response, body){
-      var result = body;
-      console.log(JSON.stringify(result));
-      let foto = result.graphql.user.profile_pic_url_hd;
-      let followedBy = result.graphql.user.edge_followed_by.count;
-      let following = result.graphql.user.edge_follow.count;
-      let post = result.graphql.user.edge_owner_to_timeline_media;
-      let fullName = result.graphql.user.full_name;
-      let bio = result.graphql.user.biography;
-      let url = result.graphql.user.external_url;
-      return client.replyMessage(replyToken, {
-          "type": "image",
-          "originalContentUrl": foto,
-          "previewImageUrl": foto
-      });
+      var result = body.graphql.user;
+      let foto = result.profile_pic_url_hd;
+      let followedBy = result.edge_followed_by.count;
+      let following = result.edge_follow.count;
+      let postCount = result.edge_owner_to_timeline_media;
+      let fullName = result.full_name;
+      let bio = result.biography;
+      let url = result.external_url;
+      var flex = instagram.profile(foto, username,followedBy, following, postCount, fullName, bio, url);
+      var postingan = result.edge_owner_to_timeline_media.edges;
+      var limit = 0;
+      var baris = 0;
+      var arr = [];
+      for (var post in postingan) {
+        res = postingan[post].node;
+        media = res.display_url;
+        box = instagram.post(media);
+        if (limit >= 3) {
+          line = {"type": "box","layout": "horizontal","margin": "xs"}
+          line.contents = arr;
+          limit = 0;
+          arr = [];
+          arr.push(box);
+        } else {
+          arr.push(box);
+        }
+        flex.contents.body.contents.push(line)
+        jmlFoto++;
+        baris++;
+      }
+      for (var i = 0; i < 3-limit; i++) {
+        flex.contents.body.contents[4+baris].push({"type":"filler"});
+      }
+      return client.replyMessage(replyToken, flex);
     });
   }
 };
