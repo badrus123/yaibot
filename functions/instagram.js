@@ -50,6 +50,7 @@ module.exports = {
       for (var i = 0; i < 3-limit; i++) {
         flex.contents.body.contents[4+baris].push({"type":"filler"});
       }
+      console.log(JSON.stringify(flex));
       return client.replyMessage(replyToken, flex);
     });
   }

@@ -262,7 +262,7 @@ function handleText(message, replyToken, source) {
         },
       });
     }
-  } else if (message.text.startsWith('ig').toLowerCase()) {
+  } else if (message.text.startsWith('ig')) {
     return instagram.profile(replyToken, message.text, source);
   }
 }
