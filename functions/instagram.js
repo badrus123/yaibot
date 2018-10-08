@@ -1,4 +1,5 @@
 const bot = require('./../bot.js');
+const instagram = require('./../template/instagram.js');
 const request = require('request'); //HTTP Request
 
 module.exports = {
