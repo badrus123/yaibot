@@ -2,7 +2,7 @@ const bot = require('./../bot.js');
 const request = require('request'); //HTTP Request
 
 module.exports = {
-  profile: function (foto, username, followedBy, following, post, fullName, bio, url) {
+  profile: function (foto, username, followedBy, following, post, fullName, bio, url, isPrivate) {
     flex = {
       "type": "flex",
       "altText": "Profile " + username,
@@ -81,7 +81,11 @@ module.exports = {
     };
     if (fullName == "") fullName = "-";
     if (bio == "") bio = "-";
-    if (url == null) url = "-";
+    displayurl = url;
+    if (url == null) {
+      displayurl = "-";
+      url = "https://instagram.com/"
+    }
     flex.contents.body.contents.push({
       "type": "box",
       "layout": "vertical",
@@ -107,11 +111,16 @@ module.exports = {
         },
         {
           "type": "text",
-          "text": url,
+          "text": displayurl,
           "wrap": true,
           "size": "sm",
           "color": "#0b5ed8",
-          "flex": 4
+          "flex": 4,
+          "action": {
+            "type": "uri",
+            "label": "Add to wishlist",
+            "uri": url
+          }
         }
       ]
     },
@@ -178,6 +187,27 @@ module.exports = {
       "type": "box",
       "layout": "horizontal",
       "margin": "xs"
+    };
+    return flex;
+  },
+  line: function () {
+    flex = {
+      "type": "image",
+      "url": "https://image.flaticon.com/icons/svg/1179/1179941.svg",
+      "aspectMode": "cover",
+      "aspectRatio": "1:1",
+      "size": "xxs",
+      "gravity": "bottom",
+      "flex": 0
+    },
+    {
+      "type": "text",
+      "text": "Digembok cuy.. Sabar aja yak",
+      "wrap": true,
+      "align": "center",
+      "size": "sm",
+      "color": "#666666",
+      "flex": 4
     };
     return flex;
   }
