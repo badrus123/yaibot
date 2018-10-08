@@ -22,7 +22,7 @@ module.exports = {
       let foto = result.profile_pic_url_hd;
       let followedBy = result.edge_followed_by.count;
       let following = result.edge_follow.count;
-      let postCount = result.edge_owner_to_timeline_media;
+      let postCount = result.edge_owner_to_timeline_media.count;
       let fullName = result.full_name;
       let bio = result.biography;
       let url = result.external_url;
@@ -42,21 +42,20 @@ module.exports = {
           limit = 0;
           arr = [];
           arr.push(box);
+          baris++;
         } else {
           arr.push(box);
         }
         limit++;
-        baris++;
       }
-      // if (limit < 3) {
-      //   line = {"type": "box","layout": "horizontal","margin": "xs"}
-      //   line.contents = arr;
-      //   flex.contents.body.contents.push(line)
-      //   for (var i = 0; i < 3-limit; i++) {
-      //     flex.contents.body.contents[3+baris].push({"type":"filler"});
-      //   }
-      // }
-      console.log(JSON.stringify(flex));
+      if (limit < 3) {
+        line = {"type": "box","layout": "horizontal","margin": "xs"}
+        line.contents = arr;
+        flex.contents.body.contents.push(line)
+        for (var i = 0; i < 3-limit; i++) {
+          flex.contents.body.contents[4+baris].push({"type":"filler"});
+        }
+      }
       return client.replyMessage(replyToken, flex);
     });
   }
