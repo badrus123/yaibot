@@ -53,7 +53,7 @@ module.exports = {
         line.contents = arr;
         flex.contents.body.contents.push(line)
         for (var i = 0; i < 3-limit; i++) {
-          flex.contents.body.contents[4+baris].push({"type":"filler"});
+          flex.contents.body.contents[3+baris].push({"type":"filler"});
         }
       }
       console.log(JSON.stringify(flex));
