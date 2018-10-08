@@ -9,13 +9,13 @@ module.exports = {
     request('https://www.instagram.com/' + username + '/?__a=1', function (error, response, body) {
       var result = body;
       console.log(JSON.stringify(result));
-      let foto = result.graphql.user.profile_pic_url_hd;
-      let followedBy = result.graphql.user.edge_followed_by.count;
-      let following = result.graphql.user.edge_follow.count;
-      let post = result.graphql.user.edge_owner_to_timeline_media;
-      let fullName = result.graphql.user.full_name;
-      let bio = result.graphql.user.biography;
-      let url = result.graphql.user.external_url;
+      // let foto = result.graphql.user.profile_pic_url_hd;
+      // let followedBy = result.graphql.user.edge_followed_by.count;
+      // let following = result.graphql.user.edge_follow.count;
+      // let post = result.graphql.user.edge_owner_to_timeline_media;
+      // let fullName = result.graphql.user.full_name;
+      // let bio = result.graphql.user.biography;
+      // let url = result.graphql.user.external_url;
       return client.replyMessage(replyToken, {
           "type": "text",
           "text": "\uDBC0\uDC84 LINE emoji"
