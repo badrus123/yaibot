@@ -189,22 +189,5 @@ module.exports = {
       "margin": "xs"
     };
     return flex;
-  },
-  private: function () {
-    flex = {
-      "type": "image",
-      "url": "https://yaibot.herokuapp.com/images/padlock.png",
-      "aspectMode": "cover",
-      "margin": "xs",
-      "size": "xl",
-    },
-    {
-      "type": "text",
-      "text": "Digembok cuy.. Sabar aja yak",
-      "wrap": true,
-      "align": "center",
-      "size": "sm",
-    };
-    return flex;
   }
 };
