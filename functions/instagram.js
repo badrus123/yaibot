@@ -45,7 +45,7 @@ module.exports = {
         } else {
           arr.push(box);
         }
-        jmlFoto++;
+        limit++;
         baris++;
       }
       if (limit < 3) {
