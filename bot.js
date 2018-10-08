@@ -218,7 +218,7 @@ function handleEvent(event) {
         res[str[0]] = str[1];
       }
       if (res.data == 'instagram') {
-        return instagram.download(event.replyToken, res, source);
+        return instagram.download(event.replyToken, res, event.source);
       }
     }
     break;
