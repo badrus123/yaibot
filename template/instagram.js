@@ -160,7 +160,7 @@ module.exports = {
          "type":"postback",
          "label":"Buy",
          "data":"data=instagram&url=" + media,
-         "text":"Buy"
+         "text": "Download foto"
       }
     };
     return flex;
