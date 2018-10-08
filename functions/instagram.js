@@ -31,7 +31,7 @@ module.exports = {
         var flex = instagram.profile(foto, username,followedBy, following, postCount, fullName, bio, url);
         if (pagination) {
           let endCursor = result.edge_owner_to_timeline_media.page_info.end_cursor;
-          flex.contents.push("footer": {"type": "box","layout": "vertical","spacing": "xs","contents": [{"type": "button","action": {"type": "postback","label": "Buy","data": "data=instagram&next=" + endCursor,"text": "See More"}}]})
+          flex.contents.footer = {"type": "box","layout": "vertical","spacing": "xs","contents": [{"type": "button","action": {"type": "postback","label": "Buy","data": "data=instagram&next=" + endCursor,"text": "See More"}}]}
         }
         var postingan = result.edge_owner_to_timeline_media.edges;
         var limit = 0;
