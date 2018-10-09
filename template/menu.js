@@ -3,6 +3,7 @@ const request = require('request'); //HTTP Request
 
 module.exports = {
   dashboard: function (foto, username, followedBy, following, post, fullName, bio, url, isPrivate) {
+    var client = bot.client;
     var flex = {
       "type": "flex",
       "altText": "Menu YaiBot",
