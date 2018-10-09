@@ -108,7 +108,7 @@ self = {
         "contents": []
       }
     };
-    flex.contents.contents.push(self.profile(replyToken, username, source, true));
+    flex.contents.contents.push(self.profile(replyToken, "ig: " + username, source, true));
     request({
       url: 'https://www.instagram.com/' + username + '/?__a=1&max_id=' + url,
       method: "GET",
