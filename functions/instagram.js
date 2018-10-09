@@ -148,6 +148,7 @@ module.exports = {
             flex.contents.contents[1].body.contents[baris].contents.push({"type":"filler"});
           }
         }
+        console.log(JSON.stringify(flex));
         return client.replyMessage(replyToken, flex);
       }
     });
