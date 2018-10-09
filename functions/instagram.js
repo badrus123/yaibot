@@ -2,7 +2,7 @@ const bot = require('./../bot.js');
 const instagram = require('./../template/instagram.js');
 const request = require('request'); //HTTP Request
 
-const profile = (username, callback) => {
+const profile = (username, isPagination, callback) => {
   request({
     url: 'https://www.instagram.com/' + username + '/?__a=1',
     method: "GET",
@@ -135,7 +135,7 @@ self = {
     var replyText = bot.replyText;
     var client = bot.client;
     var username = text.replace('ig: ', '').toLowerCase();
-    profile(username, function(flex){
+    profile(username, false, function(flex){
       if (flex !== null) {
         return client.replyMessage(replyToken, flex);
       } else {
@@ -173,7 +173,7 @@ self = {
         "contents": []
       }
     };
-    profile(username, function(before){
+    profile(username, true, function(before){
       flex.contents.contents.push(before);
       for (var i = 0; i < parseInt(page); i++) {
         next(username, i, function(before){
