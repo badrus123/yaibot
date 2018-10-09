@@ -1,4 +1,5 @@
 const bot = require('./../bot.js');
+const instagram = require('./../functions/instagram.js');
 
 module.exports = {
   response: function (replyToken, res, source) {
