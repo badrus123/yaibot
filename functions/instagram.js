@@ -118,7 +118,7 @@ module.exports = {
       if (body.graphql) {
         var result = body.graphql.user;
         var postingan = result.edge_owner_to_timeline_media.edges;
-        flex.contents.contents.push(instagram.pagination(foto, username, followedBy, following, postCount, fullName, bio, url));
+        flex.contents.contents.push(instagram.pagination());
         var limit = 0;
         var baris = 1;
         var arr = [];
