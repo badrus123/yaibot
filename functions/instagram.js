@@ -90,10 +90,10 @@ const next = (username, page, url, callback) => {
       var result = body.graphql.user;
       let pagination = result.edge_owner_to_timeline_media.page_info.has_next_page;
       var postingan = result.edge_owner_to_timeline_media.edges;
-      flex.contents.contents.push(instagram.pagination());
+      var newPage = instagram.pagination();
       if (pagination) {
         let endCursor = result.edge_owner_to_timeline_media.page_info.end_cursor;
-        flex.contents.footer = {"type": "box","layout": "vertical","spacing": "xs","contents": [{"type": "button","action": {"type": "postback","label": "See More","data": "data=instagram&type=page&username=" + username + "&page=" + page + "&url=" + endCursor,"text": "See More"}}]}
+        newPage.footer = {"type": "box","layout": "vertical","spacing": "xs","contents": [{"type": "button","action": {"type": "postback","label": "See More","data": "data=instagram&type=page&username=" + username + "&page=" + page + "&url=" + endCursor,"text": "See More"}}]}
       }
       let endCursor = result.edge_owner_to_timeline_media.page_info.end_cursor;
       var limit = 0;
@@ -109,7 +109,7 @@ const next = (username, page, url, callback) => {
           line = {"type": "box","layout": "horizontal","margin": "xs"}
           arr.push(box);
           line.contents = arr;
-          flex.contents.contents[page].body.contents.push(line);
+          newPage.body.contents.push(line);
           arr = [];
           limit = 0;
           baris++;
@@ -120,9 +120,9 @@ const next = (username, page, url, callback) => {
       if (limit < 3) {
         line = {"type": "box","layout": "horizontal", "margin": "xs"}
         line.contents = arr;
-        flex.contents.contents[page].body.contents.push(line);
+        newPage.body.contents.push(line);
         for (var i = 0; i < 3-limit; i++) {
-          flex.contents.contents[page].body.contents[baris].contents.push({"type":"filler"});
+          newPage.body.contents[baris].contents.push({"type":"filler"});
         }
       }
       callback(flex);
