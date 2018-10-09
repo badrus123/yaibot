@@ -118,6 +118,9 @@ module.exports = {
       if (body.graphql) {
         var result = body.graphql.user;
         var postingan = result.edge_owner_to_timeline_media.edges;
+        var limit = 0;
+        var baris = 1;
+        var arr = [];
         for (var post in postingan) {
           res = postingan[post].node;
           media = res.display_url;
