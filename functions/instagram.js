@@ -75,7 +75,7 @@ const profile = (username, isPagination, callback) => {
   });
 }
 
-const next = (username, page, callback) => {
+const next = (username, page, url, callback) => {
   request({
     url: 'https://www.instagram.com/' + username + '/?__a=1&max_id=' + url,
     method: "GET",
@@ -177,7 +177,14 @@ self = {
       flex.contents.contents.push(before);
       console.log("Masuk profil");
       for (var i = 0; i < 1; i++) {
-        next(username, i, function(before){
+        var data = flex.contents.contents[i].footer.contents[0].data;
+        var res = {};
+        var vars = data.split("&");
+        for(var i=0; i < vars.length; i++){
+          var str = vars[i].split("=");
+          res[str[0]] = str[1];
+        }
+        next(username, i, res.url, function(before){
           console.log("Masuk Perulangan");
           flex.contents.contents.push(before);
         });
