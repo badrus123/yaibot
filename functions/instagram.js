@@ -120,7 +120,7 @@ module.exports = {
         var postingan = result.edge_owner_to_timeline_media.edges;
         flex.contents.contents.push(instagram.pagination());
         var limit = 0;
-        var baris = 1;
+        var baris = 0;
         var arr = [];
         for (var post in postingan) {
           res = postingan[post].node;
