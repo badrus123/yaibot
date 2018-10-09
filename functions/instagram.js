@@ -7,7 +7,6 @@ self = {
     var replyText = bot.replyText;
     var client = bot.client;
     var username = text.replace('ig: ', '').toLowerCase();
-    console.log(username);
     request({
       url: 'https://www.instagram.com/' + username + '/?__a=1',
       method: "GET",
@@ -20,6 +19,7 @@ self = {
     }, function (error, response, body){
       if (body.graphql) {
         var result = body.graphql.user;
+        console.log(result);
         let foto = result.profile_pic_url_hd;
         let followedBy = result.edge_followed_by.count;
         let following = result.edge_follow.count;
@@ -109,7 +109,9 @@ self = {
         "contents": []
       }
     };
-    flex.contents.contents.push(self.profile(replyToken, "ig: " + username, source, true));
+    var profile = self.profile(replyToken, "ig: " + username, source, true);
+    console.log(profile);
+    flex.contents.contents.push(profile);
     request({
       url: 'https://www.instagram.com/' + username + '/?__a=1&max_id=' + url,
       method: "GET",
