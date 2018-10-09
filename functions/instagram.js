@@ -176,7 +176,7 @@ self = {
     profile(username, true, function(before){
       flex.contents.contents.push(before);
       console.log("Masuk profil");
-      for (var i = 0; i < parseInt(page); i++) {
+      for (var i = 0; i < 1; i++) {
         next(username, i, function(before){
           console.log("Masuk Perulangan");
           flex.contents.contents.push(before);
