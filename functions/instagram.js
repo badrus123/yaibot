@@ -75,7 +75,7 @@ const profile = (username, callback) => {
   });
 }
 
-const pagination = (username, page, callback) => {
+const next = (username, page, callback) => {
   request({
     url: 'https://www.instagram.com/' + username + '/?__a=1&max_id=' + url,
     method: "GET",
@@ -177,7 +177,7 @@ self = {
     profile(username, function(before){
       flex.contents.contents.push(before);
       for (var i = 0; i < parseInt(page); i++) {
-        pagination(username, i, function(before){
+        next(username, i, function(before){
           flex.contents.contents.push(before);
           console.log(JSON.stringify(flex));
           return client.replyMessage(replyToken, flex);
