@@ -33,7 +33,7 @@ const profile = (username, isPagination, callback) => {
         flex.contents.body.contents.push({"type": "image","url": "https://yaibot.herokuapp.com/images/padlock.png","aspectMode": "cover","margin": "xs","size": "md",},{"type": "text","text": "Digembok cuy.. Sabar aja yak","wrap": true,"align": "center","size": "md",});
       } else {
         var postingan = result.edge_owner_to_timeline_media.edges;
-        if (pagination) {
+        if (pagination && !isPagination) { // if the first page
           let endCursor = result.edge_owner_to_timeline_media.page_info.end_cursor;
           flex.contents.footer = {"type": "box","layout": "vertical","spacing": "xs","contents": [{"type": "button","action": {"type": "postback","label": "See More","data": "data=instagram&type=page&username=" + username + "&url=" + endCursor,"text": "See More"}}]}
         }
@@ -141,6 +141,11 @@ self = {
       }, function (error, response, body){
         if (body.graphql) {
           var result = body.graphql.user;
+          let pagination = result.edge_owner_to_timeline_media.page_info.has_next_page;
+          if (pagination && !isPagination) { // if the first page
+            let endCursor = result.edge_owner_to_timeline_media.page_info.end_cursor;
+            flex.contents.footer = {"type": "box","layout": "vertical","spacing": "xs","contents": [{"type": "button","action": {"type": "postback","label": "See More","data": "data=instagram&type=page&username=" + username + "&url=" + endCursor,"text": "See More"}}]}
+          }
           var postingan = result.edge_owner_to_timeline_media.edges;
           flex.contents.contents.push(instagram.pagination());
           var limit = 0;
