@@ -175,13 +175,15 @@ self = {
     };
     profile(username, true, function(before){
       flex.contents.contents.push(before);
+      console.log("Masuk profil");
       for (var i = 0; i < parseInt(page); i++) {
         next(username, i, function(before){
+          console.log("Masuk Perulangan");
           flex.contents.contents.push(before);
-          console.log(JSON.stringify(flex));
-          return client.replyMessage(replyToken, flex);
         });
       }
+      console.log(JSON.stringify(flex));
+      return client.replyMessage(replyToken, flex);
     });
   }
 };
