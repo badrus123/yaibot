@@ -2,7 +2,7 @@ const bot = require('./../bot.js');
 const instagram = require('./../template/instagram.js');
 const request = require('request'); //HTTP Request
 
-const profile = (username, isPagination, callback) => {
+const profile = (username, callback) => {
   request({
     url: 'https://www.instagram.com/' + username + '/?__a=1',
     method: "GET",
@@ -33,9 +33,9 @@ const profile = (username, isPagination, callback) => {
         flex.contents.body.contents.push({"type": "image","url": "https://yaibot.herokuapp.com/images/padlock.png","aspectMode": "cover","margin": "xs","size": "md",},{"type": "text","text": "Digembok cuy.. Sabar aja yak","wrap": true,"align": "center","size": "md",});
       } else {
         var postingan = result.edge_owner_to_timeline_media.edges;
-        if (pagination && !isPagination) { // if the first page
+        if (pagination) {
           let endCursor = result.edge_owner_to_timeline_media.page_info.end_cursor;
-          flex.contents.footer = {"type": "box","layout": "vertical","spacing": "xs","contents": [{"type": "button","action": {"type": "postback","label": "See More","data": "data=instagram&type=page&username=" + username + "&url=" + endCursor,"text": "See More"}}]}
+          flex.contents.footer = {"type": "box","layout": "vertical","spacing": "xs","contents": [{"type": "button","action": {"type": "postback","label": "See More","data": "data=instagram&type=page&username=" + username + "&page=1&url=" + endCursor,"text": "See More"}}]}
         }
         for (var post in postingan) {
           res = postingan[post].node;
@@ -73,14 +73,62 @@ const profile = (username, isPagination, callback) => {
       callback(null);
     }
   });
-  // if (source.type == 'user') {
-  //   var ref = db.ref("user/admin/" + source.userId);
-  //   ref.once("value", function(snapshot) {
-  //     callback(snapshot.val());
-  //   });
-  // } else {
-  //   callback(null);
-  // }
+}
+
+const pagination = (username, page, callback) => {
+  request({
+    url: 'https://www.instagram.com/' + username + '/?__a=1&max_id=' + url,
+    method: "GET",
+    headers: {
+      'Host': 'www.instagram.com',
+      'Cookie': process.env.INSTAGRAM_COOKIE,
+      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+    },
+    json: true
+  }, function (error, response, body){
+    if (body.graphql) {
+      var result = body.graphql.user;
+      let pagination = result.edge_owner_to_timeline_media.page_info.has_next_page;
+      var postingan = result.edge_owner_to_timeline_media.edges;
+      flex.contents.contents.push(instagram.pagination());
+      let pagination = result.edge_owner_to_timeline_media.page_info.has_next_page;
+      if (pagination) {
+        let endCursor = result.edge_owner_to_timeline_media.page_info.end_cursor;
+        flex.contents.footer = {"type": "box","layout": "vertical","spacing": "xs","contents": [{"type": "button","action": {"type": "postback","label": "See More","data": "data=instagram&type=page&username=" + username + "&page=" + page + "&url=" + endCursor,"text": "See More"}}]}
+      }
+      let endCursor = result.edge_owner_to_timeline_media.page_info.end_cursor;
+      var limit = 0;
+      var baris = 0;
+      var arr = [];
+      for (var post in postingan) {
+        res = postingan[post].node;
+        media = res.display_url;
+        isVideo = res.is_video;
+        box = instagram.post(media, isVideo);
+        limit++;
+        if (limit >= 3) {
+          line = {"type": "box","layout": "horizontal","margin": "xs"}
+          arr.push(box);
+          line.contents = arr;
+          flex.contents.contents[page].body.contents.push(line);
+          arr = [];
+          limit = 0;
+          baris++;
+        } else {
+          arr.push(box);
+        }
+      }
+      if (limit < 3) {
+        line = {"type": "box","layout": "horizontal", "margin": "xs"}
+        line.contents = arr;
+        flex.contents.contents[page].body.contents.push(line);
+        for (var i = 0; i < 3-limit; i++) {
+          flex.contents.contents[page].body.contents[baris].contents.push({"type":"filler"});
+        }
+      }
+      callback(flex);
+    }
+  });
 }
 
 self = {
@@ -88,7 +136,7 @@ self = {
     var replyText = bot.replyText;
     var client = bot.client;
     var username = text.replace('ig: ', '').toLowerCase();
-    profile(username, false, function(flex){
+    profile(username, function(flex){
       if (flex !== null) {
         return client.replyMessage(replyToken, flex);
       } else {
@@ -115,7 +163,7 @@ self = {
       });
     }
   },
-  pagination: function (replyToken, username, url, source) {
+  pagination: function (replyToken, username, page, source) {
     var replyText = bot.replyText;
     var client = bot.client;
     var flex = {
@@ -126,61 +174,15 @@ self = {
         "contents": []
       }
     };
-    profile(username, true, function(before){
-      // return client.replyMessage(replyToken, flex);
+    profile(username, function(before){
       flex.contents.contents.push(before);
-      request({
-        url: 'https://www.instagram.com/' + username + '/?__a=1&max_id=' + url,
-        method: "GET",
-        headers: {
-          'Host': 'www.instagram.com',
-          'Cookie': process.env.INSTAGRAM_COOKIE,
-          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
-        },
-        json: true
-      }, function (error, response, body){
-        if (body.graphql) {
-          var result = body.graphql.user;
-          let pagination = result.edge_owner_to_timeline_media.page_info.has_next_page;
-          var postingan = result.edge_owner_to_timeline_media.edges;
-          flex.contents.contents.push(instagram.pagination());
-          if (pagination) { // if the first page
-            let endCursor = result.edge_owner_to_timeline_media.page_info.end_cursor;
-            flex.contents.contents[1].footer = {"type": "box","layout": "vertical","spacing": "xs","contents": [{"type": "button","action": {"type": "postback","label": "See More","data": "data=instagram&type=page&username=" + username + "&url=" + endCursor,"text": "See More"}}]}
-          }
-          var limit = 0;
-          var baris = 0;
-          var arr = [];
-          for (var post in postingan) {
-            res = postingan[post].node;
-            media = res.display_url;
-            isVideo = res.is_video;
-            box = instagram.post(media, isVideo);
-            limit++;
-            if (limit >= 3) {
-              line = {"type": "box","layout": "horizontal","margin": "xs"}
-              arr.push(box);
-              line.contents = arr;
-              flex.contents.contents[1].body.contents.push(line);
-              arr = [];
-              limit = 0;
-              baris++;
-            } else {
-              arr.push(box);
-            }
-          }
-          if (limit < 3) {
-            line = {"type": "box","layout": "horizontal", "margin": "xs"}
-            line.contents = arr;
-            flex.contents.contents[1].body.contents.push(line);
-            for (var i = 0; i < 3-limit; i++) {
-              flex.contents.contents[1].body.contents[baris].contents.push({"type":"filler"});
-            }
-          }
+      for (var i = 0; i < parseInt(page); i++) {
+        pagination(username, i, function(before){
+          flex.contents.contents.push(before);
           console.log(JSON.stringify(flex));
           return client.replyMessage(replyToken, flex);
-        }
-      });
+        });
+      }
     });
   }
 };
