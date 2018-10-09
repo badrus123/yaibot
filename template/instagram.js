@@ -26,8 +26,8 @@ module.exports = {
                   "size": "xxs",
                   "action": {
                     "type": "postback",
-                    "label": "Buy",
-                    "data": "data=instagram&url=" + foto,
+                    "label": "Photo Profile",
+                    "data": "data=instagram&type=photo&url=" + foto,
                     "text": "Download photo profile"
                   },
                 },
@@ -166,7 +166,7 @@ module.exports = {
     });
     return flex;
   },
-  post: function (media) {
+  post: function (media, type) {
     flex = {
       "type": "image",
       "url": media,
@@ -175,8 +175,8 @@ module.exports = {
       "size": "xl",
       "action": {
          "type":"postback",
-         "label":"Buy",
-         "data":"data=instagram&url=" + media,
+         "label":"Download photo",
+         "data":"data=instagram&type=" + type + "&url=" + media,
          "text": "Download photo"
       }
     };

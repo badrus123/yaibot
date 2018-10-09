@@ -5,6 +5,7 @@ const express = require('express');
 const firebase = require("firebase-admin");
 const instagram = require('./functions/instagram.js');
 const postbackig = require('./postback/instagram.js');
+const menu = require('./template/menu.js');
 require('dotenv').config();
 
 // service account key for firebase
@@ -218,7 +219,7 @@ function handleEvent(event) {
         res[str[0]] = str[1];
       }
       if (res.data == 'instagram') {
-        return instagram.download(event.replyToken, res, event.source);
+        return postbackig.response(event.replyToken, res, event.source);
       }
     }
     break;
@@ -228,7 +229,8 @@ function handleEvent(event) {
 }
 
 function handleText(message, replyToken, source) {
-  if (message.text == 'Bye') {
+  text = message.text.toLowerCase();
+  if (text == 'bye') {
     switch (source.type) {
       case 'user':
       return replyText(replyToken, 'Ini kan pc :(');
@@ -260,8 +262,10 @@ function handleText(message, replyToken, source) {
         },
       });
     }
-  } else if (message.text.startsWith('ig')) {
+  } else if (text.startsWith('ig: ')) {
     return instagram.profile(replyToken, message.text, source);
+  } else if (text == 'menu') {
+    return menu.dashboard(replyToken, message.text, source);
   }
 }
 

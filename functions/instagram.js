@@ -28,18 +28,19 @@ module.exports = {
         let url = result.external_url;
         let isPrivate = result.is_private;
         let pagination = result.edge_owner_to_timeline_media.page_info.has_next_page;
-        var flex = instagram.profile(foto, username,followedBy, following, postCount, fullName, bio, url);
-        if (pagination) {
-          let endCursor = result.edge_owner_to_timeline_media.page_info.end_cursor;
-          flex.contents.footer = {"type": "box","layout": "vertical","spacing": "xs","contents": [{"type": "button","action": {"type": "postback","label": "See More","data": "data=instagram&next=" + endCursor,"text": "See More"}}]}
-        }
-        var postingan = result.edge_owner_to_timeline_media.edges;
+        var flex = instagram.profile(foto, username, followedBy, following, postCount, fullName, bio, url);
         var limit = 0;
         var baris = 1;
         var arr = [];
         if (isPrivate) {
+          flex.contents.body.contents.pop();
           flex.contents.body.contents.push({"type": "image","url": "https://yaibot.herokuapp.com/images/padlock.png","aspectMode": "cover","margin": "xs","size": "md",},{"type": "text","text": "Digembok cuy.. Sabar aja yak","wrap": true,"align": "center","size": "md",});
         } else {
+          var postingan = result.edge_owner_to_timeline_media.edges;
+          if (pagination) {
+            let endCursor = result.edge_owner_to_timeline_media.page_info.end_cursor;
+            flex.contents.footer = {"type": "box","layout": "vertical","spacing": "xs","contents": [{"type": "button","action": {"type": "postback","label": "See More","data": "data=instagram&type=page&url=" + endCursor,"text": "See More"}}]}
+          }
           for (var post in postingan) {
             res = postingan[post].node;
             media = res.display_url;
@@ -73,15 +74,40 @@ module.exports = {
       }
     });
   },
-  download: function (replyToken, res, source) {
+  download: function (replyToken, type, url, source) {
     var replyText = bot.replyText;
     var client = bot.client;
-    var foto = res.url;
-    return client.replyMessage(replyToken, {
-      "type": "image",
-      "originalContentUrl": foto,
-      "previewImageUrl": foto
-    });
-
+    var media = res.url;
+    if (type == 'photo') {
+      return client.replyMessage(replyToken, {
+        "type": "image",
+        "originalContentUrl": media,
+        "previewImageUrl": media
+      });
+    } else if (type == 'video') {
+      return client.replyMessage(replyToken, {
+        "type": "image",
+        "originalContentUrl": media,
+        "previewImageUrl": media
+      });
+    }
+  },
+  download: function (replyToken, type, url, source) {
+    var replyText = bot.replyText;
+    var client = bot.client;
+    var media = res.url;
+    if (type == 'photo') {
+      return client.replyMessage(replyToken, {
+        "type": "image",
+        "originalContentUrl": media,
+        "previewImageUrl": media
+      });
+    } else if (type == 'video') {
+      return client.replyMessage(replyToken, {
+        "type": "image",
+        "originalContentUrl": media,
+        "previewImageUrl": media
+      });
+    }
   }
 };

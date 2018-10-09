@@ -1,47 +1,19 @@
 const bot = require('./../bot.js');
 
 var self = {
-  response: function (replyToken, res, userId) {
+  response: function (replyToken, res, source) {
     var replyText = bot.replyText;
     var client = bot.client;
-    var menu = res.menu;
-    var db = bot.database;
-    switch (menu) {
-      case 'profile':
-      return igracias.profile(replyToken, userId);
+    var type = res.type;
+    var url = res.url;
+    switch (type) {
+      case 'photo':
+      case 'video':
+      return instagram.download(replyToken, type, url, source);
       break;
-
-      case 'jadwal':
-      return igracias.jadwal(replyToken, userId);
+      case 'page':
+      return instagram.pagination(replyToken, url);
       break;
-
-      case 'presensi':
-      return igracias.presensi(replyToken, userId);
-      break;
-
-      case 'kalender':
-      return template.kalender(replyToken, userId);
-      break;
-
-      case 'rfid':
-      return igracias.rfid(replyToken, userId);
-      break;
-
-      case 'nilai':
-      return igracias.nilai(replyToken, userId);
-      break;
-
-      case 'logout':
-      var ref = db.ref("user/igracias/"+userId+"/key");
-      ref.remove();
-      client.getProfile(userId).then((profile) => {
-        return client.replyMessage(replyToken, [
-          {
-              "type": "text",
-              "text": `Okee, kak ${profile.displayName} berhasil logout :D`,
-              "quickReply": {"items": [{"type": "action","action": {"type":"message","label":"Login iGracias","text":"Dashboard iGracias Bot"}},{"type": "action","action": {"type":"message","label":"Menu Tel U Bot","text":"Menu"}}]}
-          }
-        ])
       });
       break;
     }
