@@ -93,7 +93,7 @@ module.exports = {
       });
     }
   },
-  download: function (replyToken, type, url, source) {
+  pagination: function (replyToken, type, url, source) {
     var replyText = bot.replyText;
     var client = bot.client;
     var media = res.url;

@@ -123,7 +123,7 @@ module.exports = {
               "size": "full",
               "aspectRatio": "20:13",
               "aspectMode": "cover",
-              "url": "https://telubot.herokuapp.com/images/asset/Tel-U%20Bot%20Logo.png"
+              "url": "https://yaibot.herokuapp.com/images/logo/tubo.jpg"
             },
             "body": {
               "type": "box",
@@ -219,7 +219,7 @@ module.exports = {
               "size": "full",
               "aspectRatio": "20:13",
               "aspectMode": "cover",
-              "url": "https://scontent-sin6-1.cdninstagram.com/vp/cf90bb11a87104e01a260093b9c8192d/5C4A4741/t51.2885-19/s320x320/31198336_212609595998656_9212007385885835264_n.jpg"
+              "url": "https://yaibot.herokuapp.com/images/logo/screenshot_dikampus.jpg"
             },
             "body": {
               "type": "box",
@@ -315,7 +315,7 @@ module.exports = {
               "size": "full",
               "aspectRatio": "20:13",
               "aspectMode": "cover",
-              "url": "https://scontent-sin6-1.cdninstagram.com/vp/095cdda2299e5a5ffff867041a4f102a/5C57758A/t51.2885-19/s320x320/37222786_652661018434676_9092619613023240192_n.jpg"
+              "url": "https://yaibot.herokuapp.com/images/logo/iyai.jpg"
             },
             "body": {
               "type": "box",
@@ -389,7 +389,7 @@ module.exports = {
                   "color": "#ffffff",
                   "action": {
                     "type": "uri",
-                    "label": "Follow Iyai",
+                    "label": "Follow",
                     "uri": "https://instagram.com/raihaniyai"
                   }
                 }
