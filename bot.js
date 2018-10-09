@@ -267,7 +267,10 @@ function handleText(message, replyToken, source) {
   } else if (text == 'menu') {
     return menu.dashboard(replyToken);
   } else if (text == 'stalk instagram') {
-    return client.replyMessage(replyToken);
+    return replyText(replyToken,[
+      `Lansung aja ketik 'ig: username' (setelah titik dua ada spasi)\ncontoh:`,
+      `ig: raihaniyai`
+    ]);
   }
 }
 

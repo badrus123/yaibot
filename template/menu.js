@@ -7,7 +7,7 @@ module.exports = {
     var flex = {
       "type": "flex",
       "altText": "Menu YaiBot",
-      "contents":{
+      "contents": {
         "type": "carousel",
         "contents": [
           {

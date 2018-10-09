@@ -12,7 +12,7 @@ module.exports = {
       return instagram.download(replyToken, type, url, source);
       break;
       case 'page':
-      return instagram.pagination(replyToken, url);
+      return instagram.pagination(replyToken, res.username, url, res.flex, source);
       break;
     }
   }
