@@ -1,6 +1,6 @@
 const bot = require('./../bot.js');
 
-var self = {
+module.exports = {
   response: function (replyToken, res, source) {
     var replyText = bot.replyText;
     var client = bot.client;
@@ -14,10 +14,6 @@ var self = {
       case 'page':
       return instagram.pagination(replyToken, url);
       break;
-      });
-      break;
     }
   }
 };
-
-module.exports = self;
