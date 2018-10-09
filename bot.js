@@ -265,7 +265,7 @@ function handleText(message, replyToken, source) {
   } else if (text.startsWith('ig: ')) {
     return instagram.profile(replyToken, message.text, source);
   } else if (text == 'menu') {
-    return menu.dashboard(replyToken, message.text, source);
+    return menu.dashboard(replyToken);
   }
 }
 

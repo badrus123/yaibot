@@ -2,7 +2,7 @@ const bot = require('./../bot.js');
 const request = require('request'); //HTTP Request
 
 module.exports = {
-  dashboard: function (foto, username, followedBy, following, post, fullName, bio, url, isPrivate) {
+  dashboard: function (replyToken) {
     var client = bot.client;
     var flex = {
       "type": "flex",
