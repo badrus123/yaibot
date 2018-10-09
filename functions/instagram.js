@@ -142,12 +142,12 @@ self = {
         if (body.graphql) {
           var result = body.graphql.user;
           let pagination = result.edge_owner_to_timeline_media.page_info.has_next_page;
+          var postingan = result.edge_owner_to_timeline_media.edges;
+          flex.contents.contents.push(instagram.pagination());
           if (pagination) { // if the first page
             let endCursor = result.edge_owner_to_timeline_media.page_info.end_cursor;
             flex.contents.contents[1].footer = {"type": "box","layout": "vertical","spacing": "xs","contents": [{"type": "button","action": {"type": "postback","label": "See More","data": "data=instagram&type=page&username=" + username + "&url=" + endCursor,"text": "See More"}}]}
           }
-          var postingan = result.edge_owner_to_timeline_media.edges;
-          flex.contents.contents.push(instagram.pagination());
           var limit = 0;
           var baris = 0;
           var arr = [];
