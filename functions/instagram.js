@@ -2,8 +2,8 @@ const bot = require('./../bot.js');
 const instagram = require('./../template/instagram.js');
 const request = require('request'); //HTTP Request
 
-module.exports = {
-  profile: function (replyToken, text, source) {
+self = {
+  profile: function (replyToken, text, source, isPagination) {
     var replyText = bot.replyText;
     var client = bot.client;
     var username = text.replace('ig: ', '').toLowerCase();
@@ -39,7 +39,7 @@ module.exports = {
           var postingan = result.edge_owner_to_timeline_media.edges;
           if (pagination) {
             let endCursor = result.edge_owner_to_timeline_media.page_info.end_cursor;
-            flex.contents.footer = {"type": "box","layout": "vertical","spacing": "xs","contents": [{"type": "button","action": {"type": "postback","label": "See More","data": "data=instagram&type=page&username=" + username + "&flex=" + flex + "&url=" + endCursor,"text": "See More"}}]}
+            flex.contents.footer = {"type": "box","layout": "vertical","spacing": "xs","contents": [{"type": "button","action": {"type": "postback","label": "See More","data": "data=instagram&type=page&username=" + username + "&url=" + endCursor,"text": "See More"}}]}
           }
           for (var post in postingan) {
             res = postingan[post].node;
@@ -68,8 +68,11 @@ module.exports = {
             }
           }
         }
-        console.log(JSON.stringify(flex));
-        return client.replyMessage(replyToken, flex);
+        if (isPagination) {
+          return flex.contents;
+        } else {
+          return client.replyMessage(replyToken, flex);
+        }
       } else {
         answer = [`Yakin tuh ig nya? Ga nemu nih gw`, `Ga nemu ig nya nih, typo kali tuh?`, `Wadoo, gw ga nemu ig ${username}`]
         return replyText(replyToken, answer[Math.floor(Math.random()*answer.length)]);
@@ -105,8 +108,7 @@ module.exports = {
         "contents": []
       }
     };
-    console.log(JSON.stringify(before));
-    flex.contents.contents.push(before);
+    flex.contents.contents.push(self.profile(replyToken, username, source, true));
     request({
       url: 'https://www.instagram.com/' + username + '/?__a=1&max_id=' + url,
       method: "GET",
@@ -156,3 +158,5 @@ module.exports = {
     });
   }
 };
+
+module.exports = self;
