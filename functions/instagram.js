@@ -39,7 +39,7 @@ module.exports = {
           var postingan = result.edge_owner_to_timeline_media.edges;
           if (pagination) {
             let endCursor = result.edge_owner_to_timeline_media.page_info.end_cursor;
-            flex.contents.footer = {"type": "box","layout": "vertical","spacing": "xs","contents": [{"type": "button","action": {"type": "postback","label": "See More","data": "data=instagram&type=page&username=" + username + "&flex=" + flex + "&url=" + endCursor,"text": "See More"}}]}
+            flex.contents.footer = {"type": "box","layout": "vertical","spacing": "xs","contents": [{"type": "button","action": {"type": "postback","label": "See More","data": "data=instagram&type=page&username=" + username + "&flex=" + JSON.stringify(flex) + "&url=" + endCursor,"text": "See More"}}]}
           }
           for (var post in postingan) {
             res = postingan[post].node;
@@ -104,7 +104,7 @@ module.exports = {
         "contents": []
       }
     };
-    flex.contents.contents.push(before);
+    flex.contents.contents.push(JSON.parse(before));
     request({
       url: 'https://www.instagram.com/' + username + '/?__a=1&max_id=' + url,
       method: "GET",
