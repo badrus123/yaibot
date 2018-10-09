@@ -144,7 +144,7 @@ self = {
           let pagination = result.edge_owner_to_timeline_media.page_info.has_next_page;
           if (pagination) { // if the first page
             let endCursor = result.edge_owner_to_timeline_media.page_info.end_cursor;
-            flex.contents.footer = {"type": "box","layout": "vertical","spacing": "xs","contents": [{"type": "button","action": {"type": "postback","label": "See More","data": "data=instagram&type=page&username=" + username + "&url=" + endCursor,"text": "See More"}}]}
+            flex.contents.contents[1].footer = {"type": "box","layout": "vertical","spacing": "xs","contents": [{"type": "button","action": {"type": "postback","label": "See More","data": "data=instagram&type=page&username=" + username + "&url=" + endCursor,"text": "See More"}}]}
           }
           var postingan = result.edge_owner_to_timeline_media.edges;
           flex.contents.contents.push(instagram.pagination());
