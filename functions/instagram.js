@@ -177,7 +177,7 @@ self = {
       flex.contents.contents.push(before);
       console.log("Masuk profil");
       for (var i = 0; i < 1; i++) {
-        var data = flex.contents.contents[i].footer.contents[0].data;
+        var data = flex.contents.contents[i].footer.contents[0].action.data;
         var res = {};
         var vars = data.split("&");
         for(var i=0; i < vars.length; i++){
