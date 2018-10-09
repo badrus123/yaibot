@@ -98,6 +98,7 @@ module.exports = {
                 {
                   "type": "button",
                   "color": "#ffffff",
+                  "style": "link",
                   "action": {
                     "type": "message",
                     "label": "Mulai Stalk",
@@ -193,6 +194,7 @@ module.exports = {
                 {
                   "type": "button",
                   "color": "#ffffff",
+                  "style": "link",
                   "action": {
                     "type": "uri",
                     "label": "Chat Tel-U Bot",
@@ -288,6 +290,7 @@ module.exports = {
                 {
                   "type": "button",
                   "color": "#ffffff",
+                  "style": "link",
                   "action": {
                     "type": "uri",
                     "label": "Chat Dikampus",
@@ -382,6 +385,7 @@ module.exports = {
               "contents": [
                 {
                   "type": "button",
+                  "style": "link",
                   "color": "#ffffff",
                   "action": {
                     "type": "uri",
