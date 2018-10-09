@@ -39,7 +39,8 @@ module.exports = {
           var postingan = result.edge_owner_to_timeline_media.edges;
           if (pagination) {
             let endCursor = result.edge_owner_to_timeline_media.page_info.end_cursor;
-            flex.contents.footer = {"type": "box","layout": "vertical","spacing": "xs","contents": [{"type": "button","action": {"type": "postback","label": "See More","data": "data=instagram&type=page&username=" + username + "&flex=" + flex + "&url=" + endCursor,"text": "See More"}}]}
+            var hehe = JSON.stringify(flex);
+            flex.contents.footer = {"type": "box","layout": "vertical","spacing": "xs","contents": [{"type": "button","action": {"type": "postback","label": "See More","data": "data=instagram&type=page&username=" + username + "&flex=" + hehe + "&url=" + endCursor,"text": "See More"}}]}
           }
           for (var post in postingan) {
             res = postingan[post].node;
@@ -68,6 +69,7 @@ module.exports = {
             }
           }
         }
+        console.log(JSON.stringify(flex));
         return client.replyMessage(replyToken, flex);
       } else {
         answer = [`Yakin tuh ig nya? Ga nemu nih gw`, `Ga nemu ig nya nih, typo kali tuh?`, `Wadoo, gw ga nemu ig ${username}`]
