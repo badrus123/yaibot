@@ -15,7 +15,6 @@ const profile = (username, isPagination, callback) => {
   }, function (error, response, body){
     if (body.graphql) {
       var result = body.graphql.user;
-      console.log(result);
       let foto = result.profile_pic_url_hd;
       let followedBy = result.edge_followed_by.count;
       let following = result.edge_follow.count;
@@ -127,9 +126,9 @@ self = {
         "contents": []
       }
     };
-    profile(username, true, function(flex){
+    profile(username, true, function(before){
       // return client.replyMessage(replyToken, flex);
-      flex.contents.contents.push(flex);
+      flex.contents.contents.push(before);
       request({
         url: 'https://www.instagram.com/' + username + '/?__a=1&max_id=' + url,
         method: "GET",
