@@ -118,6 +118,7 @@ module.exports = {
       if (body.graphql) {
         var result = body.graphql.user;
         var postingan = result.edge_owner_to_timeline_media.edges;
+        flex.contents.contents.push(instagram.pagination(foto, username, followedBy, following, postCount, fullName, bio, url));
         var limit = 0;
         var baris = 1;
         var arr = [];
@@ -144,7 +145,7 @@ module.exports = {
           line.contents = arr;
           flex.contents.body.contents.push(line);
           for (var i = 0; i < 3-limit; i++) {
-            flex.contents.body.contents[4+baris].contents.push({"type":"filler"});
+            flex.contents.body.contents[baris].contents.push({"type":"filler"});
           }
         }
         return client.replyMessage(replyToken, flex);

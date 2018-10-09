@@ -192,5 +192,80 @@ module.exports = {
       "margin": "xs"
     };
     return flex;
+  },
+  pagination: function() {
+    flex = {
+      "type": "bubble",
+      "body": {
+        "type": "box",
+        "layout": "vertical",
+        "spacing": "md",
+        "contents": [
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "margin": "md",
+            "contents": [
+              {
+                "type": "image",
+                "url": foto,
+                "aspectMode": "cover",
+                "margin": "xs",
+                "size": "xxs",
+                "action": {
+                  "type": "postback",
+                  "label": "Photo Profile",
+                  "data": "data=instagram&type=photo&url=" + foto,
+                  "text": "Download photo profile"
+                },
+              },
+              {
+                "type": "text",
+                "text": username,
+                "size": "xl",
+                "color": "#696969",
+                "margin": "md",
+                "flex": 6
+              }
+            ]
+          },
+          {
+            "type": "box",
+            "layout": "horizontal",
+            "margin": "md",
+            "contents": [
+              {
+                "type": "text",
+                "text": post + " posts",
+                "size": "sm",
+                "margin": "sm",
+                "flex": 0
+              },
+              {
+                "type": "filler"
+              },
+              {
+                "type": "text",
+                "text": followedBy + " followers",
+                "size": "sm",
+                "margin": "sm",
+                "flex": 0
+              },
+              {
+                "type": "filler"
+              },
+              {
+                "type": "text",
+                "text": following + " following",
+                "size": "sm",
+                "margin": "sm",
+                "flex": 0
+              }
+            ]
+          }
+        ]
+      }
+    }
+    return flex;
   }
 };
