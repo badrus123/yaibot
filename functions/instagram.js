@@ -7,6 +7,7 @@ self = {
     var replyText = bot.replyText;
     var client = bot.client;
     var username = text.replace('ig: ', '').toLowerCase();
+    console.log(username);
     request({
       url: 'https://www.instagram.com/' + username + '/?__a=1',
       method: "GET",
@@ -97,7 +98,7 @@ self = {
       });
     }
   },
-  pagination: function (replyToken, username, url, before, source) {
+  pagination: function (replyToken, username, url, source) {
     var replyText = bot.replyText;
     var client = bot.client;
     var flex = {
@@ -108,55 +109,54 @@ self = {
         "contents": []
       }
     };
-    flex.contents.contents.push(self.profile(replyToken, "ig: " + username, source, true))
-    .then(request({
-        url: 'https://www.instagram.com/' + username + '/?__a=1&max_id=' + url,
-        method: "GET",
-        headers: {
-          'Host': 'www.instagram.com',
-          'Cookie': process.env.INSTAGRAM_COOKIE,
-          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
-        },
-        json: true
-      }, function (error, response, body){
-        if (body.graphql) {
-          var result = body.graphql.user;
-          var postingan = result.edge_owner_to_timeline_media.edges;
-          flex.contents.contents.push(instagram.pagination());
-          var limit = 0;
-          var baris = 0;
-          var arr = [];
-          for (var post in postingan) {
-            res = postingan[post].node;
-            media = res.display_url;
-            isVideo = res.is_video;
-            box = instagram.post(media, isVideo);
-            limit++;
-            if (limit >= 3) {
-              line = {"type": "box","layout": "horizontal","margin": "xs"}
-              arr.push(box);
-              line.contents = arr;
-              flex.contents.contents[1].body.contents.push(line);
-              arr = [];
-              limit = 0;
-              baris++;
-            } else {
-              arr.push(box);
-            }
-          }
-          if (limit < 3) {
-            line = {"type": "box","layout": "horizontal", "margin": "xs"}
+    flex.contents.contents.push(self.profile(replyToken, "ig: " + username, source, true));
+    request({
+      url: 'https://www.instagram.com/' + username + '/?__a=1&max_id=' + url,
+      method: "GET",
+      headers: {
+        'Host': 'www.instagram.com',
+        'Cookie': process.env.INSTAGRAM_COOKIE,
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+      },
+      json: true
+    }, function (error, response, body){
+      if (body.graphql) {
+        var result = body.graphql.user;
+        var postingan = result.edge_owner_to_timeline_media.edges;
+        flex.contents.contents.push(instagram.pagination());
+        var limit = 0;
+        var baris = 0;
+        var arr = [];
+        for (var post in postingan) {
+          res = postingan[post].node;
+          media = res.display_url;
+          isVideo = res.is_video;
+          box = instagram.post(media, isVideo);
+          limit++;
+          if (limit >= 3) {
+            line = {"type": "box","layout": "horizontal","margin": "xs"}
+            arr.push(box);
             line.contents = arr;
             flex.contents.contents[1].body.contents.push(line);
-            for (var i = 0; i < 3-limit; i++) {
-              flex.contents.contents[1].body.contents[baris].contents.push({"type":"filler"});
-            }
+            arr = [];
+            limit = 0;
+            baris++;
+          } else {
+            arr.push(box);
           }
-          console.log(JSON.stringify(flex));
-          return client.replyMessage(replyToken, flex);
         }
-      })
-    );
+        if (limit < 3) {
+          line = {"type": "box","layout": "horizontal", "margin": "xs"}
+          line.contents = arr;
+          flex.contents.contents[1].body.contents.push(line);
+          for (var i = 0; i < 3-limit; i++) {
+            flex.contents.contents[1].body.contents[baris].contents.push({"type":"filler"});
+          }
+        }
+        console.log(JSON.stringify(flex));
+        return client.replyMessage(replyToken, flex);
+      }
+    });
   }
 };
 
