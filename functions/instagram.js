@@ -142,7 +142,7 @@ self = {
         if (body.graphql) {
           var result = body.graphql.user;
           let pagination = result.edge_owner_to_timeline_media.page_info.has_next_page;
-          if (pagination && !isPagination) { // if the first page
+          if (pagination) { // if the first page
             let endCursor = result.edge_owner_to_timeline_media.page_info.end_cursor;
             flex.contents.footer = {"type": "box","layout": "vertical","spacing": "xs","contents": [{"type": "button","action": {"type": "postback","label": "See More","data": "data=instagram&type=page&username=" + username + "&url=" + endCursor,"text": "See More"}}]}
           }
