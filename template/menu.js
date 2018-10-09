@@ -291,7 +291,7 @@ module.exports = {
                   "action": {
                     "type": "uri",
                     "label": "Chat Dikampus",
-                    "uri": "line://ti/p/@qfk6231q"
+                    "uri": "line://ti/p/@dikampus.id"
                   }
                 }
               ]

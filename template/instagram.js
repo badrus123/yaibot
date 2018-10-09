@@ -166,7 +166,9 @@ module.exports = {
     });
     return flex;
   },
-  post: function (media, type) {
+  post: function (media, isVideo) {
+    if (isVideo) let type = 'video'
+    else let type = 'photo'
     flex = {
       "type": "image",
       "url": media,

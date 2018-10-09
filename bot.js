@@ -266,6 +266,8 @@ function handleText(message, replyToken, source) {
     return instagram.profile(replyToken, message.text, source);
   } else if (text == 'menu') {
     return menu.dashboard(replyToken);
+  } else if (text == 'stalk instagram') {
+    return client.replyMessage(replyToken);
   }
 }
 

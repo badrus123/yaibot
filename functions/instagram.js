@@ -33,7 +33,7 @@ module.exports = {
         var baris = 1;
         var arr = [];
         if (isPrivate) {
-          flex.contents.body.contents.pop();
+          flex.contents.body.contents.pop(); flex.contents.body.contents.pop();
           flex.contents.body.contents.push({"type": "image","url": "https://yaibot.herokuapp.com/images/padlock.png","aspectMode": "cover","margin": "xs","size": "md",},{"type": "text","text": "Digembok cuy.. Sabar aja yak","wrap": true,"align": "center","size": "md",});
         } else {
           var postingan = result.edge_owner_to_timeline_media.edges;
@@ -44,7 +44,8 @@ module.exports = {
           for (var post in postingan) {
             res = postingan[post].node;
             media = res.display_url;
-            box = instagram.post(media);
+            isVideo = res.is_video;
+            box = instagram.post(media, isVideo);
             limit++;
             if (limit >= 3) {
               line = {"type": "box","layout": "horizontal","margin": "xs"}
