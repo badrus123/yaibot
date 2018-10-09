@@ -229,7 +229,7 @@ function handleEvent(event) {
 }
 
 function handleText(message, replyToken, source) {
-  text = message.text.toLowerCase();
+  let text = message.text.toLowerCase();
   if (text == 'bye') {
     switch (source.type) {
       case 'user':
