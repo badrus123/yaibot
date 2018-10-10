@@ -148,7 +148,7 @@ self = {
             flex.contents.body.contents[baris].contents.push({"type":"filler"});
           }
         }
-
+        return client.replyMessage(replyToken, flex);
       }
     });
   }
