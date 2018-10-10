@@ -111,7 +111,8 @@ self = {
         let foto = result.profile_pic_url_hd;
         let pagination = result.edge_owner_to_timeline_media.page_info.has_next_page;
         var postingan = result.edge_owner_to_timeline_media.edges;
-        page = parseInt(page)++;
+        page = parseInt(page);
+        page++;
         var flex = instagram.pagination(foto, username, page);
         if (pagination) {
           let endCursor = result.edge_owner_to_timeline_media.page_info.end_cursor;
