@@ -119,7 +119,7 @@ module.exports = {
           "action": {
             "type": "uri",
             "label": "Add to wishlist",
-            "uri": url
+            "uri": website
           }
         }
       ]
