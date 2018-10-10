@@ -19,6 +19,7 @@ self = {
     }, function (error, response, body){
       if (body.graphql) {
         var result = body.graphql.user;
+        let instagramid = result.id;
         let foto = result.profile_pic_url_hd;
         let followedBy = result.edge_followed_by.count;
         let following = result.edge_follow.count;
@@ -38,7 +39,7 @@ self = {
         } else {
           if (pagination) {
             let endCursor = result.edge_owner_to_timeline_media.page_info.end_cursor;
-            flex.contents.footer = {"type": "box","layout": "vertical","spacing": "xs","contents": [{"type": "button","action": {"type": "postback","label": "See More","data": "data=instagram&type=page&username=" + username + "&page=1&url=" + endCursor,"text": "See More"}}]}
+            flex.contents.footer = {"type": "box","layout": "vertical","spacing": "xs","contents": [{"type": "button","action": {"type": "postback","label": "See More","data": "data=instagram&type=page&username=" + username + "&id=" + instagramid + "&page=1&url=" + endCursor,"text": "See More"}}]}
           }
           var postingan = result.edge_owner_to_timeline_media.edges;
           for (var post in postingan) {
@@ -93,11 +94,11 @@ self = {
       });
     }
   },
-  pagination: function (replyToken, username, page, url, source) {
+  pagination: function (replyToken, username, page, id, url, source) {
     var replyText = bot.replyText;
     var client = bot.client;
     request({
-      url: 'https://www.instagram.com/' + username + '/?__a=1&max_id=' + url,
+      url: 'https://www.instagram.com/graphql/query/?query_hash=5b0222df65d7f6659c9b82246780caa7&variables={"id":"' + id + '","first":12,"after":"' + url + '"}',
       method: "GET",
       headers: {
         'Host': 'www.instagram.com',
@@ -106,17 +107,16 @@ self = {
       },
       json: true
     }, function (error, response, body){
-      if (body.graphql) {
-        var result = body.graphql.user;
-        let foto = result.profile_pic_url_hd;
+      if (body.data) {
+        var result = body.data.user;
         let pagination = result.edge_owner_to_timeline_media.page_info.has_next_page;
         var postingan = result.edge_owner_to_timeline_media.edges;
         page = parseInt(page);
         page++;
-        var flex = instagram.pagination(foto, username, page);
+        var flex = instagram.pagination(username, page);
         if (pagination) {
           let endCursor = result.edge_owner_to_timeline_media.page_info.end_cursor;
-          flex.contents.footer = {"type": "box","layout": "vertical","spacing": "xs","contents": [{"type": "button","action": {"type": "postback","label": "See More","data": "data=instagram&type=page&username=" + username + "&page=" + page + "&url=" + endCursor, "text": "See More"}}]}
+          flex.contents.footer = {"type": "box","layout": "vertical","spacing": "xs","contents": [{"type": "button","action": {"type": "postback","label": "See More","data": "data=instagram&type=page&username=" + username + "&page=" + page + "&id=" + id + "&url=" + endCursor, "text": "See More"}}]}
         }
         let endCursor = result.edge_owner_to_timeline_media.page_info.end_cursor;
         var limit = 0;

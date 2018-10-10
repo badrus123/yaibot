@@ -193,7 +193,7 @@ module.exports = {
     };
     return flex;
   },
-  pagination: function(foto, username, page) {
+  pagination: function(username, page) {
     flex = {
       "type": "flex",
       "altText": username + " page " + page.toString,
@@ -209,11 +209,6 @@ module.exports = {
               "layout": "baseline",
               "margin": "md",
               "contents": [
-                {
-                  "type": "icon",
-                  "size": "xl",
-                  "url": foto
-                },
                 {
                   "type": "text",
                   "text": username,
