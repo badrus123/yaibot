@@ -97,6 +97,7 @@ self = {
   pagination: function (replyToken, username, page, id, url, source) {
     var replyText = bot.replyText;
     var client = bot.client;
+    console.log("ID:" + id + " | URI:" + url);
     request({
       url: 'https://www.instagram.com/graphql/query/?query_hash=5b0222df65d7f6659c9b82246780caa7&variables={"id":"' + id + '","first":12,"after":"' + url + '"}',
       method: "GET",
