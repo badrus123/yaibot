@@ -132,7 +132,7 @@ self = {
             line = {"type": "box","layout": "horizontal","margin": "xs"}
             arr.push(box);
             line.contents = arr;
-            result.contents.body.contents.push(line);
+            flex.contents.body.contents.push(line);
             arr = [];
             limit = 0;
             baris++;
@@ -143,9 +143,9 @@ self = {
         if (limit < 3 && limit > 0) {
           line = {"type": "box","layout": "horizontal", "margin": "xs"}
           line.contents = arr;
-          result.contents.body.contents.push(line);
+          flex.contents.body.contents.push(line);
           for (var i = 0; i < 3-limit; i++) {
-            result.contents.body.contents[baris].contents.push({"type":"filler"});
+            flex.contents.body.contents[baris].contents.push({"type":"filler"});
           }
         }
 
