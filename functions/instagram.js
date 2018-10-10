@@ -107,6 +107,7 @@ self = {
       },
       json: true
     }, function (error, response, body){
+      console.log(JSON.stringify(body));
       if (body.data) {
         var result = body.data.user;
         let pagination = result.edge_owner_to_timeline_media.page_info.has_next_page;
