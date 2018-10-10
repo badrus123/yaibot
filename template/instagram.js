@@ -2,7 +2,7 @@ const bot = require('./../bot.js');
 const request = require('request'); //HTTP Request
 
 module.exports = {
-  profile: function (foto, username, followedBy, following, post, fullName, bio, url, isPrivate) {
+  profile: function (foto, username, followedBy, following, post, fullName, bio, website) {
     flex = {
       "type": "flex",
       "altText": "Profile " + username,
@@ -81,10 +81,10 @@ module.exports = {
     };
     if (fullName == "") fullName = "-";
     if (bio == "") bio = "-";
-    displayurl = url;
-    if (url == null) {
+    displayurl =  website;
+    if (website == null) {
       displayurl = "-";
-      url = "https://instagram.com/"
+      website = "https://instagram.com/"
     }
     flex.contents.body.contents.push({
       "type": "box",
@@ -193,16 +193,60 @@ module.exports = {
     };
     return flex;
   },
-  pagination: function() {
+  pagination: function(foto, username, page) {
     flex = {
-      "type": "bubble",
-      "body": {
-        "type": "box",
-        "layout": "vertical",
-        "spacing": "md",
-        "contents": []
+      "type": "flex",
+      "altText": username + " page " + page.toString,
+      "contents": {
+        "type": "bubble",
+        "body": {
+          "type": "box",
+          "layout": "vertical",
+          "spacing": "md",
+          "contents": [
+            {
+              "type": "box",
+              "layout": "baseline",
+              "margin": "md",
+              "contents": [
+                {
+                  "type": "icon",
+                  "size": "xl",
+                  "url": foto
+                },
+                {
+                  "type": "text",
+                  "text": username,
+                  "size": "xl",
+                  "color": "#696969",
+                  "margin": "md",
+                  "flex": 0
+                },
+                {
+                  "type": "text",
+                  "text": "page " + page,
+                  "size": "sm",
+                  "color": "#696969",
+                  "margin": "md",
+                  "align": "end"
+                }
+              ]
+            },
+            {
+              "type": "box",
+              "layout": "baseline",
+              "margin": "md",
+              "contents": [
+                {
+                  "type": "spacer"
+
+                }
+              ]
+            }
+          ]
+        }
       }
-    }
+    };
     return flex;
   }
 };

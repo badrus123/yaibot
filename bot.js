@@ -263,7 +263,7 @@ function handleText(message, replyToken, source) {
       });
     }
   } else if (text.startsWith('ig: ')) {
-    return instagram.profile(replyToken, message.text, source, false);
+    return instagram.profile(replyToken, message.text, source);
   } else if (text == 'menu') {
     return menu.dashboard(replyToken);
   } else if (text == 'stalk instagram') {
