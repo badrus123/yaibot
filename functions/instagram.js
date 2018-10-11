@@ -37,6 +37,7 @@ self = {
           flex.contents.body.contents.pop(); flex.contents.body.contents.pop();
           flex.contents.body.contents.push({"type": "image","url": "https://yaibot.herokuapp.com/images/padlock.png","aspectMode": "cover","margin": "xs","size": "md",},{"type": "text","text": "Digembok cuy.. Sabar aja yak","wrap": true,"align": "center","size": "md",});
         } else {
+          flex.contents.body.contents[0].push({"type": "text","text": "Stories","wrap": true,"size": "md","align": "end","color": "#0b5ed8","margin": "md","flex": 2,"action": {"type": "postback","label": "Stories","data": "data=instagram&type=stories&id=" + instagramid,"text": "Stories " + username}});
           if (pagination) {
             let endCursor = result.edge_owner_to_timeline_media.page_info.end_cursor;
             flex.contents.footer = {"type": "box","layout": "vertical","spacing": "xs","contents": [{"type": "button","action": {"type": "postback","label": "See More","data": "data=instagram&type=page&username=" + username + "&id=" + instagramid + "&page=1&url=" + endCursor,"text": "See More"}}]}
@@ -108,7 +109,6 @@ self = {
       },
       json: true
     }, function (error, response, body){
-      console.log(JSON.stringify(body));
       if (body.data) {
         var result = body.data.user;
         let pagination = result.edge_owner_to_timeline_media.page_info.has_next_page;
@@ -128,6 +128,9 @@ self = {
           res = postingan[post].node;
           media = res.display_url;
           isVideo = res.is_video;
+          if (isVideo) {
+            toPost = res.edge_media_to_caption.shortcode;
+          }
           box = instagram.post(media, isVideo);
           limit++;
           if (limit >= 3) {
@@ -149,6 +152,46 @@ self = {
           for (var i = 0; i < 3-limit; i++) {
             flex.contents.body.contents[baris].contents.push({"type":"filler"});
           }
+        }
+        return client.replyMessage(replyToken, flex);
+      }
+    });
+  },
+  stories: function (replyToken, id, source) {
+    var replyText = bot.replyText;
+    var client = bot.client;
+    request({
+      url: 'https://www.instagram.com/graphql/query/?query_hash=45246d3fe16ccc6577e0bd297a5db1ab&variables={"reel_ids":["' + id + '"],"tag_names":[],"location_ids":[],"highlight_reel_ids":[],"precomposed_overlay":false}}',
+      method: "GET",
+      headers: {
+        'Host': 'www.instagram.com',
+        'Cookie': process.env.INSTAGRAM_COOKIE,
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+      },
+      json: true
+    }, function (error, response, body){
+      if (body.data.reels_media[0]) {
+        var result = body.data.reels_media[0];
+        let foto = result.user.profile_pic_url;
+        let username = result.user.username;
+        var flex = {
+          "type": "flex",
+          "altText": "Stories " + username,
+          "contents": {
+            "type": "carousel",
+            "contents": []
+          }
+        };
+        var stories = result.items;
+        for (var post in stories) {
+          res = stories[post].display_url;
+          taken = stories[post].taken_at_timestamp;
+          media = res.display_url;
+          isVideo = res.is_video;
+          if (isVideo) previewMedia = res.video_resources[0];
+          else previewMedia = media;
+          story = instagram.stories(username, taken, media, previewMedia, isVideo);
+          flex.contents.contents.push(story);
         }
         return client.replyMessage(replyToken, flex);
       }

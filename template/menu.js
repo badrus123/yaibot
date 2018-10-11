@@ -70,7 +70,7 @@ module.exports = {
                     },
                     {
                       "type": "text",
-                      "text": "Stalk Instagram Orang Sabi",
+                      "text": "Stalk Instagram Orang, \nDownload Photo, \nDownload Story",
                       "wrap": true,
                       "margin": "md",
                       "color": "#aaaaaa",

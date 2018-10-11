@@ -15,6 +15,9 @@ module.exports = {
       case 'page':
       return instagram.pagination(replyToken, res.username, res.page, res.id, url, source);
       break;
+      case 'stories':
+      return instagram.stories(replyToken, res.id, source);
+      break;
     }
   }
 };

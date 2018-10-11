@@ -193,6 +193,56 @@ module.exports = {
     };
     return flex;
   },
+  stories: function (username, taken, media, previewMedia, isVideo) {
+    const moment = require('moment');
+    var client = bot.client;
+    moment.locale('id');
+    var date = moment(new Date(1539177634 * 1000).toISOString()).calendar();
+    flex = {
+      "type": "bubble",
+      "header":{
+        "type": "box",
+        "layout": "baseline",
+        "contents": [
+          {
+            "type": "icon",
+            "size": "xl",
+            "url": foto
+          },
+          {
+            "type": "text",
+            "text": username,
+            "size": "xl",
+            "color": "#696969",
+            "margin": "md",
+            "flex": 0
+          },
+          {
+            "type": "text",
+            "text": date,
+            "size": "md",
+            "color": "#696969",
+            "margin": "md",
+            "align": "end"
+          }
+        ]
+      },
+      "hero": {
+        "type": "image",
+        "size": "full",
+        "aspectMode": "cover",
+        "aspectRatio": "9:16",
+        "action": {
+          "type": "postback",
+          "label": "See More",
+          "data": "data=instagram&type=stories&url=" + media + "&preview=" + previewMedia,
+          "text": "See More"
+        },
+        "url": media
+      }
+    };
+    return flex;
+  },
   pagination: function(username, page) {
     flex = {
       "type": "flex",
