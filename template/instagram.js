@@ -198,6 +198,8 @@ module.exports = {
     var client = bot.client;
     moment.locale('id');
     var date = moment(new Date(taken * 1000).toISOString()).calendar();
+    if (isVideo) type = 'video'
+    else = 'photo'
     flex = {
       "type": "bubble",
       "header":{
@@ -230,12 +232,12 @@ module.exports = {
       "hero": {
         "type": "image",
         "size": "full",
-        "aspectMode": "cover",
-        "aspectRatio": "9:16",
+        "aspectMode": "fit",
+        "aspectRatio": "3:4",
         "action": {
           "type": "postback",
           "label": "See More",
-          "data": "data=instagram&type=stories&url=" + media + "&preview=" + previewMedia,
+          "data": "data=instagram&" + "&type=" type + "url=" + media + "&preview=" + previewMedia ,
           "text": "See More"
         },
         "url": media
