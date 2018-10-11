@@ -117,14 +117,6 @@ function handleEvent(event) {
                   "label": "Menu YaiBot",
                   "text": "Menu"
                 }
-              },
-              {
-                "type": "action",
-                "action": {
-                  "type": "message",
-                  "label": "How to use",
-                  "text": "How to use"
-                }
               }
             ]
           }
@@ -171,14 +163,6 @@ function handleEvent(event) {
                   "type": "message",
                   "label": "Menu",
                   "text": "Menu"
-                }
-              },
-              {
-                "type": "action",
-                "action": {
-                  "type": "message",
-                  "label": "How to use",
-                  "text": "How to use"
                 }
               }
             ]
