@@ -37,7 +37,7 @@ self = {
           flex.contents.body.contents.pop(); flex.contents.body.contents.pop();
           flex.contents.body.contents.push({"type": "image","url": "https://yaibot.herokuapp.com/images/padlock.png","aspectMode": "cover","margin": "xs","size": "md",},{"type": "text","text": "Digembok cuy.. Sabar aja yak","wrap": true,"align": "center","size": "md",});
         } else {
-          flex.contents.body.contents[0].push({"type": "text","text": "Stories","wrap": true,"size": "md","align": "end","color": "#0b5ed8","margin": "md","flex": 2,"action": {"type": "postback","label": "Stories","data": "data=instagram&type=stories&id=" + instagramid,"text": "Stories " + username}});
+          flex.contents.body.contents[0].contents.push({"type": "text","text": "Stories","wrap": true,"size": "md","align": "end","color": "#0b5ed8","margin": "md","flex": 2,"action": {"type": "postback","label": "Stories","data": "data=instagram&type=stories&id=" + instagramid,"text": "Stories " + username}});
           if (pagination) {
             let endCursor = result.edge_owner_to_timeline_media.page_info.end_cursor;
             flex.contents.footer = {"type": "box","layout": "vertical","spacing": "xs","contents": [{"type": "button","action": {"type": "postback","label": "See More","data": "data=instagram&type=page&username=" + username + "&id=" + instagramid + "&page=1&url=" + endCursor,"text": "See More"}}]}
