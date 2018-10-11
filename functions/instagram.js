@@ -193,6 +193,7 @@ self = {
           story = instagram.stories(foto, username, taken, media, previewMedia, isVideo);
           flex.contents.contents.push(story);
         }
+        console.log(flex);
         return client.replyMessage(replyToken, flex);
       }
     });
