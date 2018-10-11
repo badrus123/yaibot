@@ -199,7 +199,7 @@ module.exports = {
     moment.locale('id');
     var date = moment(new Date(taken * 1000).toISOString()).calendar();
     if (isVideo) type = 'video'
-    else = 'photo'
+    else type = 'photo'
     flex = {
       "type": "bubble",
       "header":{
