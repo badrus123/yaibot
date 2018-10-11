@@ -236,9 +236,9 @@ module.exports = {
         "aspectRatio": "3:4",
         "action": {
           "type": "postback",
-          "label": "See More",
+          "label": "Download Story",
           "data": "data=instagram&" + "&type=" + type + "url=" + media + "&preview=" + previewMedia ,
-          "text": "See More"
+          "text": "Download Story"
         },
         "url": media
       }
