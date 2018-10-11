@@ -184,7 +184,7 @@ self = {
         };
         var stories = result.items;
         for (var post in stories) {
-          res = stories[post].display_url;
+          res = stories[post];
           taken = stories[post].taken_at_timestamp;
           media = res.display_url;
           isVideo = res.is_video;
