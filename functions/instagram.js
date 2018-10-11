@@ -190,7 +190,7 @@ self = {
           isVideo = res.is_video;
           if (isVideo) previewMedia = res.video_resources[0];
           else previewMedia = media;
-          story = instagram.stories(username, taken, media, previewMedia, isVideo);
+          story = instagram.stories(foto, username, taken, media, previewMedia, isVideo);
           flex.contents.contents.push(story);
         }
         return client.replyMessage(replyToken, flex);

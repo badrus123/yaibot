@@ -193,11 +193,11 @@ module.exports = {
     };
     return flex;
   },
-  stories: function (username, taken, media, previewMedia, isVideo) {
+  stories: function (foto, username, taken, media, previewMedia, isVideo) {
     const moment = require('moment');
     var client = bot.client;
     moment.locale('id');
-    var date = moment(new Date(1539177634 * 1000).toISOString()).calendar();
+    var date = moment(new Date(taken * 1000).toISOString()).calendar();
     flex = {
       "type": "bubble",
       "header":{
