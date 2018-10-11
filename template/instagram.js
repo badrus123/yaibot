@@ -193,18 +193,11 @@ module.exports = {
     };
     return flex;
   },
-  stories: function (foto, username, taken, media, previewMedia, isVideo) {
+  stories: function (foto, username, taken, media, order, id) {
     const moment = require('moment');
     var client = bot.client;
     moment.locale('id');
     var date = moment(new Date(taken * 1000).toISOString()).calendar();
-    if (isVideo) {
-      type = 'video'
-      add = "&preview=" + previewMedia;
-    } else {
-      type   = 'photo'
-      add = ""
-    }
     flex = {
       "type": "bubble",
       "header":{
@@ -242,7 +235,7 @@ module.exports = {
         "action": {
           "type": "postback",
           "label": "Download Story",
-          "data": "data=instagram&type=" + type + "&url=" + media + add,
+          "data": "data=instagram&type=story&order=" + order + "&id=" + id,
           "text": "Download Story"
         },
         "url": media
@@ -291,7 +284,6 @@ module.exports = {
               "contents": [
                 {
                   "type": "spacer"
-
                 }
               ]
             }

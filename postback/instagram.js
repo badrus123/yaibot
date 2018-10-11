@@ -18,6 +18,9 @@ module.exports = {
       case 'stories':
       return instagram.stories(replyToken, res.id, source);
       break;
+      case 'story':
+      return instagram.story(replyToken, res.order, res.id, source);
+      break;
     }
   }
 };

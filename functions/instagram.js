@@ -190,11 +190,48 @@ self = {
           isVideo = res.is_video;
           if (isVideo) previewMedia = res.video_resources[0].src;
           else previewMedia = media;
-          story = instagram.stories(foto, username, taken, media, previewMedia, isVideo);
+          story = instagram.stories(foto, username, taken, media, post, id);
           flex.contents.contents.push(story);
         }
         console.log(JSON.stringify(flex));
         return client.replyMessage(replyToken, flex);
+      }
+    });
+  },
+  story: function (replyToken, order, id, source) {
+    var replyText = bot.replyText;
+    var client = bot.client;
+    request({
+      url: 'https://www.instagram.com/graphql/query/?query_hash=45246d3fe16ccc6577e0bd297a5db1ab&variables={"reel_ids":["' + id + '"],"tag_names":[],"location_ids":[],"highlight_reel_ids":[],"precomposed_overlay":false}',
+      method: "GET",
+      headers: {
+        'Host': 'www.instagram.com',
+        'Cookie': process.env.INSTAGRAM_COOKIE,
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+      },
+      json: true
+    }, function (error, response, body){
+      if (body.data.reels_media[0]) {
+        var result = body.data.reels_media[0];
+        var stories = result.items;
+        res = stories[order];
+        media = res.display_url;
+        isVideo = res.is_video;
+        if (isVideo) {
+          previewMedia = media;
+          media = res.video_resources[0].src;
+          return client.replyMessage(replyToken, {
+            "type": "video",
+            "originalContentUrl": media,
+            "previewImageUrl": previewMedia
+          });
+        } else  {
+          return client.replyMessage(replyToken, {
+            "type": "image",
+            "originalContentUrl": media,
+            "previewImageUrl": media
+          });
+        }
       }
     });
   }
