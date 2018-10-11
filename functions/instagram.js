@@ -188,7 +188,7 @@ self = {
           taken = stories[post].taken_at_timestamp;
           media = res.display_url;
           isVideo = res.is_video;
-          if (isVideo) previewMedia = res.video_resources[0];
+          if (isVideo) previewMedia = res.video_resources[0].src;
           else previewMedia = media;
           story = instagram.stories(foto, username, taken, media, previewMedia, isVideo);
           flex.contents.contents.push(story);
