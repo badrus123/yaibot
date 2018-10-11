@@ -197,7 +197,7 @@ module.exports = {
     const moment = require('moment');
     var client = bot.client;
     moment.locale('id');
-    var date = moment(new Date(taken * 1000).toISOString()).calendar();
+    var date = moment(new Date(taken * 1000).toISOString()).format('HH:mm');
     flex = {
       "type": "bubble",
       "header":{
