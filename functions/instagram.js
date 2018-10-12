@@ -193,8 +193,9 @@ self = {
           story = instagram.stories(foto, username, taken, media, post, id);
           flex.contents.contents.push(story);
         }
-        console.log(JSON.stringify(flex));
         return client.replyMessage(replyToken, flex);
+      } else {
+        return replyText(replyToken, 'Wah, doi belom update story nih kayaknya');
       }
     });
   },
